@@ -1,7 +1,7 @@
-mvn clean package
-docker image build . -t school-search
-docker container rm -f $(docker container ls -q --filter name=school-search*)
-docker run -p 8089:8089 --name school-search school-search
+- mvn clean package
+- docker image build . -t school-search
+- docker container rm -f $(docker container ls -q --filter name=school-search*)
+- docker run -p 8089:8089 --name school-search school-search
 
 ## Spring Social
 
