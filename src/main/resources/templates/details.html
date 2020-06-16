@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Spring Social Login</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
+</head>
+<body>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" th:href="@{/}">School Search</a>
+    </div>
+    <p class="navbar-text navbar-right">
+        <span sec:authentication="name">Username</span> &nbsp; &nbsp; &nbsp;
+        <a th:href="@{/}">My Classmates</a>
+        <a th:href="@{/logout}">Logout</a>&nbsp; &nbsp; &nbsp;                
+    </p>
+  </div><!-- /.container-fluid -->
+</nav>
+
+<div class="container">
+<!-- <h1 class="col-sm-12">Welcome, <span sec:authentication="name">Username</span></h1> -->
+<!-- <p class="col-sm-12 text-muted" sec:authentication="authorities">User authorities</p> -->
+</div>
+<div align="center">
+    <h1>My Details</h1>
+    <a href="/new-class">Add New Class</a>
+    <br/><br/>
+    <table border="1" cellpadding="10">
+        <thead>
+            <tr>
+                <th>School Name</th>
+                <th>Class</th>
+                <th>Year</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="classRecord : ${classRecords}">
+                <td th:text="${classRecord.schoolName}">School Name</td>
+                <td th:text="${classRecord.classNumber}">Class Standard</td>
+                <td th:text="${classRecord.year}">Year</td>
+                <td>
+	                <a th:href="@{/delete/{id}(id=${classRecord.id})}">Delete</a>
+                </td>
+                
+            </tr>
+        </tbody>
+    </table>
+</div>  
+</body>
+</html>
