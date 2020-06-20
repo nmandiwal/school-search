@@ -1,5 +1,6 @@
 package com.mandiwal.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -12,12 +13,14 @@ import org.springframework.stereotype.Service;
 
 import com.mandiwal.persistence.dao.ClassRepository;
 import com.mandiwal.persistence.dao.SchoolRepository;
+import com.mandiwal.persistence.dao.UserClassMappingHistoryRepository;
 import com.mandiwal.persistence.dao.UserClassMappingRepository;
 import com.mandiwal.persistence.dao.UserRepository;
 import com.mandiwal.persistence.model.ClassRoom;
 import com.mandiwal.persistence.model.School;
 import com.mandiwal.persistence.model.User;
 import com.mandiwal.persistence.model.UserClassRoomMapping;
+import com.mandiwal.persistence.model.UserClassRoomMappingHistory;
 import com.mandiwal.vo.ClassRecord;
 import com.mandiwal.vo.Classmate;
 
@@ -35,6 +38,9 @@ public class UserService {
 
 	@Autowired
 	UserClassMappingRepository classMappingRepository;
+
+	@Autowired
+	UserClassMappingHistoryRepository classMappingHistoryRepository;
 
 	private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
@@ -107,6 +113,11 @@ public class UserService {
 			classRoomMapping.setClassRoomId(classRoom.getId());
 			classRoomMapping.setUsername(username);
 			classMappingRepository.save(classRoomMapping);
+			UserClassRoomMappingHistory classRoomMappingHistory = new UserClassRoomMappingHistory();
+			classRoomMappingHistory.setClassRoomId(classRoom.getId());
+			classRoomMappingHistory.setUsername(username);
+			classRoomMappingHistory.setCreatedDate(LocalDate.now());
+			classMappingHistoryRepository.save(classRoomMappingHistory);
 		} else {
 			logger.warn("School Name was not selected by " + username);
 		}

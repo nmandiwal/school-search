@@ -1,36 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>School Search</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
+    <title>Classmate Search</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </head>
+
 <body>
 
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" th:href="@{/}">School Search</a>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" th:href="@{/}">School Search</a>
+            </div>
+            <p class="navbar-text navbar-right">
+                <span sec:authentication="name">Username</span> &nbsp; &nbsp; &nbsp;
+                <a th:href="@{/details}">My Details</a>
+                <a th:href="@{/logout}">Logout</a>&nbsp; &nbsp; &nbsp;
+            </p>
+        </div><!-- /.container-fluid -->
+    </nav>
+
+    <div align="center">
+        <h5>My Classmates</h5>
+
+        
+        <table>
+            <tbody>
+                <tr th:each="classmate : ${classmates}">
+                    <td> <img th:src="${classmate.imageUrl}" /></td>
+                    <td><a th:href="@{'https://www.facebook.com/search/people/?q='+ ${classmate.name}}" th:text="${classmate.name}" target="_blank">classmate name</a> </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-    <p class="navbar-text navbar-right">
-        <span sec:authentication="name">Username</span> &nbsp; &nbsp; &nbsp;
-        <a th:href="@{/details}">My Details</a>
-        <a th:href="@{/logout}">Logout</a>&nbsp; &nbsp; &nbsp;                
-    </p>
-  </div><!-- /.container-fluid -->
-</nav>
-
-<div class="container">
-<!-- <h1 class="col-sm-12">Welcome, <span sec:authentication="name">Username</span></h1> -->
-<!-- <p class="col-sm-12 text-muted" sec:authentication="authorities">User authorities</p> -->
-</div>
-<div class="container">Classmates:</div>
-
-<table>
-<tr th:each="classmate : ${classmates}">
-	<td> <img th:src="${classmate.imageUrl}"/></td>
-	<td><span th:text="${classmate.name}">sf</span> </td>
-</tr>
-</table>
 </body>
+
 </html>

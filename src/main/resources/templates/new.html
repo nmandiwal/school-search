@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 <style>
 .dropbtn {
 	background-color: #4CAF50;
@@ -69,8 +73,6 @@
 </style>
 
 <title>School Search</title>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
 <script>
 	/* When the user clicks on the button,
 	 toggle between hiding and showing the dropdown content */
@@ -128,22 +130,23 @@
 		<div>
 			<form action="#" th:action="@{/add-class}" th:object="${classRecord}"
 				method="post">
-				<label for="schoolName">School Name</label> 
-				<input type="text"
-					readonly="readonly" th:field="*{schoolName}" id="schoolName"
-					placeholder="Select from List" class="schoolName"> 
-				<label for="classNumber">Class
-					Standard</label> 
+				<label for="classNumber">Class</label> 
 				<select th:field="*{classNumber}" id="classNumber"
 					placeholder="Class Standard">
 					<option th:each="classStandard : ${classStandards}"
 						th:value="${classStandard}" th:text="${classStandard}"></option>
-				</select> <label for="year">Year</label>
+				</select> <label for="year">Passout Year</label>
 				<!-- <input type="text" th:field="*{year}" id="year" placeholder="Year"> -->
 				<select th:field="*{year}" id="year" placeholder="Year">
 					<option th:each="year : ${years}" th:value="${year}"
 						th:text="${year}"></option>
 				</select> 
+				<br>
+				<label for="schoolName">School Name</label> 
+				<input type="text"
+					readonly="readonly" th:field="*{schoolName}" id="schoolName"
+					placeholder="Select from List" class="schoolName"> 
+				
 				<input type="submit" value="Save">
 				<a href="/details"> Cancel </a>
 			</form>
@@ -158,24 +161,24 @@
 			</div>
 		</div>
 		<br /> <br />
+        <h6>My Class Records</h6>
 		<table border="1" cellpadding="10">
-			<thead>
-				<tr>
-					<th>School Name</th>
-					<th>Class</th>
-					<th>Year</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="classRecord : ${classRecords}">
-					<td th:text="${classRecord.schoolName}" class="schoolName">School Name</td>
-					<td th:text="${classRecord.classNumber}">Class Standard</td>
-					<td th:text="${classRecord.year}">Year</td>
-					<td><a th:href="@{/delete/{id}(id=${classRecord.id})}">Delete</a>
-					</td>
+		    <thead>
+		        <tr>
+		            <th>School Name</th>
+		            <th>Class</th>
+		            <th>Passout Year</th>
+		        </tr>
+		    </thead>
+		    <tbody>
+		        <tr th:each="classRecord : ${classRecords}">
+		            <td th:text="${classRecord.schoolName}" class="schoolName">School Name</td>
+		            <td th:text="${classRecord.classNumber}">Class Standard</td>
+		            <td th:text="${classRecord.year}">Passout Year</td>
+		            <td><a th:href="@{/delete/{id}(id=${classRecord.id})}">Delete</a></td>
 
-				</tr>
-			</tbody>
+		        </tr>
+		    </tbody>
 		</table>
 	</div>
 
